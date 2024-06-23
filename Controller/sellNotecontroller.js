@@ -4,7 +4,7 @@ const slugify=require("slugify")
 const uploadNotes= async (req,res)=>
 {
    try {
-    const {name,slug,description,price,quantity}=req.fields;
+    const {name,slug,description,price,discountPrice,quantity}=req.fields;
     const {photo}=req.files;
     const note = new noteBookModel({ ...req.fields,slug: slugify(name) });
     if (photo) {
@@ -103,7 +103,7 @@ const deleteNote = async (req, res) => {
 const updateNote= async (req,res)=>
 {
    try {
-    const {name,slug,description,price,quantity,shipping}=req.fields;
+    const {name,slug,description,price,discountPrice,quantity,shipping}=req.fields;
     const {photo}=req.files;
 
     const note = await noteBookModel.findByIdAndUpdate(

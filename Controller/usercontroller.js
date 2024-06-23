@@ -1,5 +1,6 @@
 const userModel = require("../Models/userModel");
 const softCopyModel = require("../Models/softcopyModel");
+const Address = require('../Models/UserAddressModel');
 const bcrypt = require("bcryptjs");
 require("dotenv").config();
 
@@ -43,20 +44,26 @@ const login = async (req, res) => {
   
   try {
     const { email, password } = req.body
-    const userExist = await userModel.findOne({ email });    
-    if (!userExist) {
+    const user = await userModel.findOne({ email });    
+    if (!user) {
       res.json("notexist");
 
     }
     else{
-    const role=userExist.role;
-    const isPasswordValid = await bcrypt.compare(password, userExist.password);
+    const role=user.role;
+    const isPasswordValid = await bcrypt.compare(password, user.password);
     if (isPasswordValid && role===0) {
       res.status(200).json({
         status: "userexist",
         message: " User Login Successful",
-        token: await userExist.generateToken(),
-        userId: userExist._id.toString(),
+        user: {
+          fullName: user.fullName,
+          email: user.email,
+          phoneNumber: user.phoneNumber,
+          role: user.role,
+        },
+        token: await user.generateToken(),
+        userId: user._id.toString(),
       })
      
       //const user = await userModel.findById(req.user._id);
@@ -66,9 +73,15 @@ const login = async (req, res) => {
     {  
       res.status(200).json({
         status: "adminexist",
+        user: {
+          fullName: user.fullName,
+          email: user.email,
+          phoneNumber: user.phoneNumber,
+          role: user.role,
+        },
         message: " Admin Login Successful",
-        token: await userExist.generateToken(),
-        userId: userExist._id.toString(),
+        token: await user.generateToken(),
+        userId: user._id.toString(),
       })
     }
     else if(!isPasswordValid)
@@ -81,7 +94,7 @@ const login = async (req, res) => {
       res.json({ status: false });
     }
   }
-  } catch (e) {
+} catch (e) {
     console.log(e);
   }
 }
@@ -94,7 +107,28 @@ const user_auth = async (req, res) => {
   }
 }
 
+const createAddress = async (req, res) => {
+  const { type, homeAddress, homePhone, faculty, roomNo } = req.body;
+
+  try {
+    const newAddress = new Address({
+      type,
+      homeAddress,
+      homePhone,
+      faculty,
+      roomNo,
+    });
+
+    const savedAddress = await newAddress.save();
+    res.json(savedAddress);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+};
 
 
 
-module.exports = { home, register, login,  user_auth};
+
+
+module.exports = { home, register, login,  user_auth,createAddress};

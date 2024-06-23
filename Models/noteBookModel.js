@@ -20,6 +20,12 @@ const noteBookSchema = new mongoose.Schema(
       required: true,
     
     },
+ 
+    discountPrice: {
+      type: Number,
+      required: true,
+    
+    },
     quantity: {
       type: Number,
       required: true,
