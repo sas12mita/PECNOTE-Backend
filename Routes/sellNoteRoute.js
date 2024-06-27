@@ -1,4 +1,15 @@
-const {uploadNotes,getNotes,getSingleNotes,getPhoto,deleteNote,updateNote,noteCount,notePerPage,searchNote}=require("../Controller/sellNotecontroller")
+const {uploadNotes,
+    getNotes,
+    getSingleNotes,
+    getPhoto,
+    deleteNote,
+    updateNote,
+    noteCount,
+    notePerPage,
+    searchNote,
+    braintreePayment,
+    braintreeToken
+    }=require("../Controller/sellNotecontroller")
 const express=require('express');
 const SellNoteRouter=express.Router();
 const formidable = require('express-formidable');
@@ -11,12 +22,5 @@ SellNoteRouter.route("/updateNote/:pid").put(formidable(),updateNote);
 SellNoteRouter.route("/noteCount").get(noteCount);
 SellNoteRouter.route("/notePerPage").get(notePerPage);
 SellNoteRouter.route("/search/:keyword").get(searchNote);
-
-
-
-
-
-
-
 
 module.exports = SellNoteRouter

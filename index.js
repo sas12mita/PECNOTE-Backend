@@ -26,6 +26,8 @@ app.use("/api/auth",authroute);
 const noteroute=require("./Routes/sellNoteRoute")
 app.use("/api/auth",noteroute);
 
+
+
 app.listen(8000,()=>
 
     console.log('server is running in port 8000')

@@ -1,6 +1,6 @@
 const userModel = require("../Models/userModel");
 const softCopyModel = require("../Models/softcopyModel");
-const Address = require('../Models/UserAddressModel');
+
 const bcrypt = require("bcryptjs");
 require("dotenv").config();
 
@@ -38,6 +38,20 @@ const register = async (req, res) => {
   } catch (error) {
     console.log(error)
     res.status(500).json({ msg: "Inter server error" });
+  }
+}
+const getUser= async(req,res)=>
+  {
+  try{  const user= await userModel.find({});
+  if(user)
+    {
+      res.json(user);
+    }else{
+      res.json({status:false})
+    }
+
+  }catch(e){
+    console.log(e);
   }
 }
 const login = async (req, res) => {
@@ -107,28 +121,10 @@ const user_auth = async (req, res) => {
   }
 }
 
-const createAddress = async (req, res) => {
-  const { type, homeAddress, homePhone, faculty, roomNo } = req.body;
-
-  try {
-    const newAddress = new Address({
-      type,
-      homeAddress,
-      homePhone,
-      faculty,
-      roomNo,
-    });
-
-    const savedAddress = await newAddress.save();
-    res.json(savedAddress);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-};
 
 
 
 
 
-module.exports = { home, register, login,  user_auth,createAddress};
+
+module.exports = { home, register, login, getUser, user_auth};
