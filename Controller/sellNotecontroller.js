@@ -176,4 +176,13 @@ try{
       });
     }
   };
-module.exports = { uploadNotes,getNotes, getSingleNotes,getPhoto,deleteNote,updateNote,noteCount,notePerPage,searchNote};
+module.exports = {
+   uploadNotes,
+  getNotes, 
+  getSingleNotes,
+  getPhoto,
+  deleteNote,
+  updateNote,
+  noteCount,
+  notePerPage,
+  searchNote};

@@ -17,12 +17,12 @@ const home = async (req, res) => {
 const register = async (req, res) => {
   try {
 
-    const { fullName, email, phoneNumber, password } = req.body;
+    const { fullName, email,password } = req.body;
     const userExist = await userModel.findOne({ email })
     if (userExist) {
       return res.json("exist");
     }
-    const userCreated = await userModel.create({ fullName, email, phoneNumber, password });
+    const userCreated = await userModel.create({ fullName, email, password });
     console.log(req.body)
     console.log(userCreated);
 
@@ -53,7 +53,8 @@ const getUser= async(req,res)=>
   }catch(e){
     console.log(e);
   }
-}
+  }
+ 
 const login = async (req, res) => {
   
   try {
@@ -73,7 +74,6 @@ const login = async (req, res) => {
         user: {
           fullName: user.fullName,
           email: user.email,
-          phoneNumber: user.phoneNumber,
           role: user.role,
         },
         token: await user.generateToken(),
@@ -90,7 +90,7 @@ const login = async (req, res) => {
         user: {
           fullName: user.fullName,
           email: user.email,
-          phoneNumber: user.phoneNumber,
+          
           role: user.role,
         },
         message: " Admin Login Successful",
@@ -112,6 +112,7 @@ const login = async (req, res) => {
     console.log(e);
   }
 }
+
 
 const user_auth = async (req, res) => {
   try {

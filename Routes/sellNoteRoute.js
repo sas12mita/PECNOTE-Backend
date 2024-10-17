@@ -7,8 +7,7 @@ const {uploadNotes,
     noteCount,
     notePerPage,
     searchNote,
-    braintreePayment,
-    braintreeToken
+   
     }=require("../Controller/sellNotecontroller")
 const express=require('express');
 const SellNoteRouter=express.Router();

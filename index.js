@@ -19,12 +19,13 @@ mongoose.connect('mongodb://0.0.0.0:27017/hello').then(()=>{
 
 
 
-
-const authroute=require("./Routes/routes")
-app.use("/api/auth",authroute);
-
 const noteroute=require("./Routes/sellNoteRoute")
+const authroute=require("./Routes/routes")
+const paymentroute=require("./Routes/paymentRoute")
+app.use("/api/auth",authroute);
 app.use("/api/auth",noteroute);
+app.use("/api/auth",paymentroute);
+
 
 
 

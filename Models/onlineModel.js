@@ -4,20 +4,17 @@ const orderSchema = new mongoose.Schema(
   {
     noteBook: [
       {
-        type: mongoose.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "NoteBook",
       },
     ],
     payment: {},
-    buyer: {
-      type: mongoose.ObjectId,
-      ref: "Users",
-    },
     status: {
       type: String,
       default: "Not Process",
       enum: ["Not Process", "Processing", "Shipped", "Delivered", "Cancelled"],
     },
+  
     address: {
       type: String,
       required: true,
@@ -26,6 +23,6 @@ const orderSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Order = mongoose.model("Order", orderSchema);
+const onlineModel = mongoose.model("Order", orderSchema);
 
-module.exports = Order;
+module.exports = onlineModel;
